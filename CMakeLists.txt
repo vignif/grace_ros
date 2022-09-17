@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(engagement_system)
+project(grace_ros)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -108,7 +108,7 @@ generate_dynamic_reconfigure_options(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES engagement_system
+#  LIBRARIES grace_ros
 #  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -128,7 +128,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/engagement_system.cpp
+#   src/${PROJECT_NAME}/grace_ros.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -209,7 +209,7 @@ catkin_install_python(PROGRAMS src/server.py src/client.py
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_engagement_system.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_grace_ros.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

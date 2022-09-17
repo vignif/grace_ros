@@ -1,0 +1,11 @@
+  <launch>
+
+    <!-- <node name="reconfig" pkg="grace_ros" type="set_weights_reconfigure.py" respawn="false" output="screen"/> -->
+    <node name="server" pkg="grace_ros" type="server.py" respawn="false" output="screen"/>
+
+    <node name="client" pkg="grace_ros" type="client.py" respawn="false" output="screen"/>
+    
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find grace_ros)/cfg/eng_config.rviz"/>
+
+    <!-- <node name="plot_eng" type="rqt_plot" pkg="rqt_plot" args="/engagement" /> -->
+  </launch>

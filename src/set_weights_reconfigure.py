@@ -3,10 +3,10 @@
 import rospy
 
 from dynamic_reconfigure.server import Server
-from engagement_system.cfg import EngConfig
+from grace_ros.cfg import EngConfig
 
 def callback(config, level):
-    rospy.loginfo("""Reconfigure Request: {proxemics_weight_param}, {gaze_weight_param}""".format(**config))
+    rospy.loginfo("""Reconfigure Request: {proxemics_weight}, {gaze_weight}""".format(**config))
     return config
 
 if __name__ == "__main__":

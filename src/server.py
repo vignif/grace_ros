@@ -21,14 +21,19 @@ class GraceServer:
         self.service = rospy.Service(
             "get_engagement", GetEngagement, self.handle_engagement)
         self.srv = Server(EngConfig, self.callback)
-        self.pub = rospy.Publisher('engagement', Float32, queue_size=10)
+        self.pub = rospy.Publisher('mutual_engagement', Float32, queue_size=10)
         self.eng = 0.0
 
+        self.prox_epsilon = 0.0
+        self.prox_weight = 1.0
+        self.gaze_weight = 1.0
+
     def callback(self, config, level):
-        proxemics_weight_param = config["proxemics_weight"]
-        gaze_weight_param = config["gaze_weight"]
+        self.prox_epsilon = config["proxemics_epsilon"]
+        self.prox_weight = config["proxemics_weight"]
+        self.gaze_weight = config["gaze_weight"]
         rospy.loginfo(
-            f"Reconfigure Request: {proxemics_weight_param}, {gaze_weight_param}")
+            f"Reconfigure Request: {self.prox_epsilon}, {self.prox_weight}, {self.gaze_weight}")
         return config
 
     def handle_engagement(self, req):
@@ -45,7 +50,7 @@ class GraceServer:
 
         AgentA = Agent(req.A.name, positionA, orientationA)
         AgentB = Agent(req.B.name, positionB, orientationB)
-        # prox = rospy.get_param("proxemics_weight")
+        # prox_weight = rospy.get_param("proxemics_weight")
         # gaze = rospy.get_param("gaze_weight")
 
         ### CALL ENGAGEMENT LIBRARY FROM HERE ###
@@ -54,13 +59,13 @@ class GraceServer:
         rospy.loginfo_once(f'Social Agent name B: {AgentB.name}')
 
         P = ProximityFeature(AgentA, AgentB)
-        P.epsilon = 1.5
+        P.epsilon = self.prox_epsilon
         G = GazeFeature(AgentA, AgentB)
 
         # feature handler
         F = FeatureHandler(AgentA, AgentB)
-        F.add(P, 1.0)
-        F.add(G, 1.0)
+        F.add(P, self.prox_weight)
+        F.add(G, self.gaze_weight)
         F.compute()
         I = Interaction(F)
         self.eng = I.compute()
