@@ -65,7 +65,7 @@ class GraceServer:
         I = Interaction(F)
         self.eng = I.compute()
         rospy.loginfo(f'Mutual Engagement: {self.eng}')
-
+        self.pub.publish(self.eng)
         return self.eng
 
 
