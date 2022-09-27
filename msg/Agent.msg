@@ -1,3 +1,3 @@
 Header header
 string name
-geometry_msgs/Pose Pose
+geometry_msgs/Pose pose

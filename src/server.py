@@ -37,16 +37,16 @@ class GraceServer:
         return config
 
     def handle_engagement(self, req):
+        # rospy.loginfo("Received request")
+        positionA = [req.A.pose.position.x,
+                     req.A.pose.position.y, req.A.pose.position.z]
+        orientationA = [req.A.pose.orientation.x, req.A.pose.orientation.y,
+                        req.A.pose.orientation.z, req.A.pose.orientation.w]
 
-        positionA = [req.A.Pose.position.x,
-                     req.A.Pose.position.y, req.A.Pose.position.z]
-        orientationA = [req.A.Pose.orientation.x, req.A.Pose.orientation.y,
-                        req.A.Pose.orientation.z, req.A.Pose.orientation.w]
-
-        positionB = [req.B.Pose.position.x,
-                     req.B.Pose.position.y, req.B.Pose.position.z]
-        orientationB = [req.B.Pose.orientation.x, req.B.Pose.orientation.y,
-                        req.B.Pose.orientation.z, req.B.Pose.orientation.w]
+        positionB = [req.B.pose.position.x,
+                     req.B.pose.position.y, req.B.pose.position.z]
+        orientationB = [req.B.pose.orientation.x, req.B.pose.orientation.y,
+                        req.B.pose.orientation.z, req.B.pose.orientation.w]
 
         AgentA = Agent(req.A.name, positionA, orientationA)
         AgentB = Agent(req.B.name, positionB, orientationB)
