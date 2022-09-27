@@ -27,7 +27,7 @@ source venv_grace/bin/activate
 pip install --upgrade pip
 wget https://github.com/vignif/grace/releases/download/v1.0.0/grace-1.0.0-py3-none-any.whl
 pip install grace-1.0.0-py3-none-any.whl
-pip install empy catkin_pkg rospkg PySide2
+pip install wheel empy catkin_pkg rospkg PySide2
 ```
 
 Build your package
