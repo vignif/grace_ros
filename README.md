@@ -1,6 +1,8 @@
 # grace_ros
 ROS wrapper for GRACE - GeometRic ApproaCh to mutual Engagement
 
+Python library of [grace](https://github.com/vignif/grace)
+
 Create your ros workspace
 ```
 cd ~
