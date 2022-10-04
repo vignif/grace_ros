@@ -23,9 +23,7 @@ class GraceClientHRI:
 
         self.human_tf = None
         self.human_id = None
-
         self.robot_tf = None
-        # self.run()
 
     def get_transformation(source_frame, target_frame,
                         tf_cache_duration=2.0):
@@ -58,17 +56,15 @@ class GraceClientHRI:
         if len(data.ids) > 0:
             self.human_id = data.ids[0]
             rospy.loginfo_throttle_identical(60, f'Face id: {self.human_id}')
+            self.human_tf = self.tfBuffer.lookup_transform('camera_color_optical_frame', 'face_'+str(self.human_id), rospy.Time(0), rospy.Duration(1.0))
+            self.robot_tf = self.tfBuffer.lookup_transform('camera_color_optical_frame', 'camera_link', rospy.Time(0), rospy.Duration(1.0))
+            
+        if self.human_tf is None or self.robot_tf is None:
+            rospy.logerr_throttle(2.0, 'No human or robot tf')
 
-            # get tf of human
-            self.human_tf = self.tfBuffer.lookup_transform('camera_color_frame', 'face_'+str(self.human_id), rospy.Time(0), rospy.Duration(1.0))
-            # rospy.loginfo_throttle(2, self.human_tf)
-
-            # get tf of robot
-            self.robot_tf = self.tfBuffer.lookup_transform('camera_color_frame', 'camera_link', rospy.Time(0), rospy.Duration(1.0))
 
     def run(self, event):
         rospy.loginfo_once("Running GraceClientHRI")
-        # rospy.logdebug(self.robot_tf)
 
         if self.robot_tf is not None and self.human_tf is not None:
             robot_position = self.robot_tf.transform.translation
