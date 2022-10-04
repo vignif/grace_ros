@@ -1,0 +1,13 @@
+<launch>
+  
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="device_type" value="d435"/>
+  </include>
+
+  <include file="$(find hri_face_detect)/launch/detect.launch">
+    <arg name="face_mesh" value="True"/>
+  </include>
+  
+  <node pkg="rosbag" type="record" name="tf_for_grace" args="record /tf /tf_static /humans/faces/tracked -o $(find grace_ros)/bags/tf_for_grace.bag" />
+  
+</launch>
