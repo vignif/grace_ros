@@ -28,6 +28,8 @@ class GraceServer:
         self.prox_weight = 1.0
         self.gaze_weight = 1.0
 
+        rospy.loginfo_once("Running GraceServerHRI")
+
     def callback(self, config, level):
         self.prox_epsilon = config["proxemics_epsilon"]
         self.prox_weight = config["proxemics_weight"]
